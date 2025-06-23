@@ -1,26 +1,19 @@
 USE bd_cinema;
 
-# 1.Filmes em exibição com horários e salas
-SELECT f.nome_fil, s.hora_ses, sl.numero_sal
-FROM Sessoes AS s
-INNER JOIN Filmes AS f
-	ON f.id_fil = s.id_filme_fk
-INNER JOIN Salas AS sl
-	ON sl.id_sal = s.id_sala_fk
-WHERE s.data_ses = CURDATE();
+# 1.Seleção de Filme, Categoria, Sala e Valor da sessão mesmo que não tenha sessão registrada
+SELECT f.nome_fil, c.nome_cat_fil, s.numero_sal, ses.valor_ses FROM Sessoes AS ses
+RIGHT JOIN Filmes AS f ON f.id_fil = ses.id_filme_fk
+INNER JOIN Categorias_Filme AS c ON c.id_cat_fil = f.id_categoria_fk
+LEFT JOIN Salas AS s ON s.id_sal = ses.id_sala_fk;
 
-
-# 2.Sessões futuras de um determinado filme
-SELECT f.nome_fil, s.data_ses, s.hora_ses, s.valor_ses, sl.numero_sal, s.meia_ses
-FROM Sessoes AS s
-INNER JOIN Filmes AS f
-	ON f.id_fil = s.id_filme_fk
-INNER JOIN Salas AS sl
-	ON sl.id_sal = s.id_sala_fk
-WHERE
-	(s.data_ses = CURDATE() AND s.hora_ses > CURTIME()) OR s.data_ses > CURDATE() AND f.id_fil = 1;
+# 2.Ingressos vendidos por sessão
+SELECT COUNT(i.id_ing)
+FROM Ingressos AS i
+INNER JOIN Sessoes AS s 
+	ON s.id_ses = i.id_sessao_fk
+WHERE s.id_ses = 1;
     
-# 3.Assentos ocupados por sessão
+# 3.Assentos livres por sessão
 SELECT a.numero_ass 
 FROM Assentos AS a
 INNER JOIN Sessoes AS s 
@@ -46,17 +39,14 @@ INNER JOIN Tipos_Produto AS tp ON tp.id_tip_pro = p.id_tipo_produto_fk
 GROUP BY p.id_prod
 ORDER BY SUM(pv.quantidade_prod_ven) DESC;
 
-# 6.Ingressos vendidos por sessão
-SELECT COUNT(i.id_ing)
-FROM Ingressos AS i
-INNER JOIN Sessoes AS s 
-	ON s.id_ses = i.id_sessao_fk
-WHERE s.id_ses = 1;
+# 6.Selecionando todos os clientes que possuem ao menos uma compra no sistema
+SELECT c.* FROM Clientes AS c WHERE (SELECT COUNT(*) FROM Vendas WHERE id_cliente_fk = c.id_cli) >= 1;
 
-# 7.Resumo financeiro do caixa
-SELECT f.nome_fun AS caixa, SUM(c.total_ent_cai) AS entrada, SUM(c.total_sai_cai) AS saida, SUM(c.total_ent_cai) - SUM(c.total_sai_cai) AS total
-FROM Caixas AS c
-INNER JOIN Funcionarios AS f ON f.id_fun = c.id_funcionario_fk
-WHERE c.dt_ini_cai BETWEEN '2025-05-01' AND '2025-05-31'
-GROUP BY f.nome_fun
-ORDER BY f.nome_fun;
+# 7.Filmes com a duração superior a média geral
+#Obs: primeiro converto de hh:mm:ss para segundos para tirar a média, depois para hh:mm:ss para poder saber quem é maior do que a média
+SELECT f.* FROM Filmes AS f WHERE f.duracao_fil > (SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(Filmes.duracao_fil))) FROM Filmes);
+
+# 8.Nomes dos produtos vendidos mais de UMA vez
+SELECT p.nome_prod, SUM(pv.quantidade_prod_ven) FROM Produtos_Venda AS pv
+INNER JOIN Produtos AS p ON pv.id_produto_fk = p.id_prod
+GROUP BY p.nome_prod HAVING(COUNT(*)) > 1;
