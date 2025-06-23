@@ -118,6 +118,8 @@ CREATE TABLE Vendas(
     FOREIGN KEY(id_forma_pagamento_fk) REFERENCES Formas_Pagamento(id_for_pag)
 );
 
+SELECT * FROM Vendas;
+
 CREATE TABLE Produtos_Venda(
     id_prod_ven INT PRIMARY KEY AUTO_INCREMENT,
     quantidade_prod_ven INT,

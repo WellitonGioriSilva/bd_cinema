@@ -156,12 +156,7 @@ INSERT INTO Ingressos (meia_ing, id_sessao_fk, id_assento_fk, id_venda_fk) VALUE
 (TRUE, 2, 31, 2),
 (FALSE, 3, 61, 3),
 (FALSE, 4, 91, 4),
-(FALSE, 5, 121, 5),
-(TRUE, 6, 151, 6),
-(TRUE, 7, 181, 7),
-(FALSE, 8, 211, 8),
-(TRUE, 9, 241, 9),
-(FALSE, 10, 271, 10);
+(FALSE, 5, 121, 5);
 
 -- Produtos_Venda
 INSERT INTO Produtos_Venda (quantidade_prod_ven, valor_unitario_prod_ven, id_produto_fk, id_venda_fk) VALUES
@@ -169,10 +164,4 @@ INSERT INTO Produtos_Venda (quantidade_prod_ven, valor_unitario_prod_ven, id_pro
 (1, 10.00, 2, 7),
 (3, 8.00, 3, 8),
 (2, 7.00, 4, 9),
-(1, 18.00, 5, 10),
-(1, 5.00, 6, 1),
-(2, 12.00, 7, 2),
-(1, 9.00, 8, 3),
-(1, 4.00, 9, 4),
-(2, 15.00, 10, 5),
-(1, 15.00, 10, 5);
+(1, 18.00, 5, 10);
