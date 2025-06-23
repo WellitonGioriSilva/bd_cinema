@@ -72,12 +72,12 @@ INSERT INTO Tipos_Produto (nome_tip_pro) VALUES
 ('Bebida'), ('Pipoca'), ('Doce'), ('Salgado'), ('Combo');
 
 -- Produtos
-INSERT INTO Produtos (nome_prod, descricao, id_tipo_produto_fk) VALUES
-('Refrigerante Lata', '350ml diversos sabores', 1),
-('Pipoca Média', 'Pipoca salgada média', 2),
-('Chocolate', 'Chocolate barra 100g', 3),
-('Salgadinho', 'Salgadinho de queijo 80g', 4),
-('Combo Clássico', 'Pipoca grande + 2 refrigerantes', 5);
+INSERT INTO Produtos (nome_prod, descricao_prod, valor_prod, id_tipo_produto_fk) VALUES
+('Refrigerante Lata', '350ml diversos sabores', 6.00, 1),
+('Pipoca Média', 'Pipoca salgada média', 15.00, 2),
+('Chocolate', 'Chocolate barra 100g', 6.00, 3),
+('Salgadinho', 'Salgadinho de queijo 80g', 7.00, 4),
+('Combo Clássico', 'Pipoca grande + 2 refrigerantes', 20.00, 5);
 
 -- Estoques
 INSERT INTO Estoques (validade_est, quantidade_est, lote_est, id_produto_fk) VALUES
@@ -95,21 +95,18 @@ INSERT INTO Historicos (valor_his, promocao_his, valor_promocao_his, id_produto_
 (7.00, FALSE, 0.00, 4),
 (18.00, TRUE, 15.00, 5);
 
--- Vendas
+-- Vendas de ingressos
 INSERT INTO Vendas (sub_total_ven, data_ven, desconto_ven, total_ven, id_cliente_fk, id_caixa_fk, id_forma_pagamento_fk) VALUES
-(37.00, '2025-05-20', 5.00, 32.00, 1, 1, 1),
-(22.50, '2025-05-21', 0.00, 22.50, 2, 2, 2),
-(54.00, '2025-05-22', 2.00, 52.00, 3, 3, 3),
-(42.00, '2025-05-23', 10.00, 32.00, 4, 4, 4),
-(50.00, '2025-05-24', 0.00, 50.00, 5, 5, 5);
-
--- Produtos_Venda
-INSERT INTO Produtos_Venda (quantidade_prod_ven, valor_unitario_prod_ven, id_produto_fk, id_venda_fk) VALUES
-(2, 6.00, 1, 1),
-(1, 10.00, 2, 2),
-(3, 8.00, 3, 3),
-(2, 7.00, 4, 4),
-(1, 18.00, 5, 5);
+(25.00, '2025-05-20', 0.00, 25.00, 1, 1, 1),
+(25.00, '2025-05-21', 0.00, 25.00, 2, 2, 2),
+(30.00, '2025-05-22', 0.00, 30.00, 3, 3, 3),
+(28.00, '2025-05-23', 0.00, 28.00, 4, 4, 4),
+(32.00, '2025-05-24', 0.00, 32.00, 5, 5, 5),
+(12.00, '2025-05-20', 0.00, 12.00, 1, 1, 1),
+(10.00, '2025-05-21', 0.00, 10.00, 2, 2, 2),
+(24.00, '2025-05-22', 0.00, 24.00, 3, 3, 3),
+(14.00, '2025-05-23', 0.00, 14.00, 4, 4, 4),
+(18.00, '2025-05-24', 0.00, 18.00, 5, 5, 5);
 
 -- Ingressos
 INSERT INTO Ingressos (meia_ing, id_sessao_fk, id_assento_fk, id_venda_fk) VALUES
@@ -118,3 +115,11 @@ INSERT INTO Ingressos (meia_ing, id_sessao_fk, id_assento_fk, id_venda_fk) VALUE
 (FALSE, 3, 61, 3),
 (FALSE, 4, 91, 4),
 (FALSE, 5, 121, 5);
+
+-- Produtos vendidos
+INSERT INTO Produtos_Venda (quantidade_prod_ven, valor_unitario_prod_ven, id_produto_fk, id_venda_fk) VALUES
+(2, 6.00, 1, 6),
+(1, 10.00, 2, 7),
+(3, 8.00, 3, 8),
+(2, 7.00, 4, 9),
+(1, 18.00, 5, 10);

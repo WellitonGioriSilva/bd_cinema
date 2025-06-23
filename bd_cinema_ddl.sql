@@ -80,7 +80,8 @@ CREATE TABLE Tipos_Produto(
 CREATE TABLE Produtos(
     id_prod INT PRIMARY KEY AUTO_INCREMENT,
     nome_prod VARCHAR(100),
-    descricao TEXT,
+    descricao_prod TEXT,
+    valor_prod DOUBLE,
     id_tipo_produto_fk INT NOT NULL,
     FOREIGN KEY(id_tipo_produto_fk) REFERENCES Tipos_Produto(id_tip_pro)
 );
@@ -135,5 +136,5 @@ CREATE TABLE Ingressos(
     id_assento_fk INT NOT NULL,
     FOREIGN KEY(id_assento_fk) REFERENCES Assentos(id_ass),
     id_venda_fk INT NOT NULL,
-    FOREIGN KEY(id_venda_fk) REFERENCES Vendas(id_ven)
+    FOREIGN KEY(id_venda_fk) REFERENCES Vendas(id_ven) ON DELETE CASCADE
 );
