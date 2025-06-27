@@ -50,3 +50,36 @@ SELECT f.* FROM Filmes AS f WHERE f.duracao_fil > (SELECT SEC_TO_TIME(AVG(TIME_T
 SELECT p.nome_prod, SUM(pv.quantidade_prod_ven) FROM Produtos_Venda AS pv
 INNER JOIN Produtos AS p ON pv.id_produto_fk = p.id_prod
 GROUP BY p.nome_prod HAVING(COUNT(*)) > 1;
+
+######################### Gráficos
+
+# Gráfico de Linha - Faturamento Mensal
+SELECT 
+    YEAR(data_ven) AS ano,
+    MONTH(data_ven) AS mes,
+    SUM(total_ven) AS total_mensal
+FROM Vendas
+GROUP BY ano, mes
+ORDER BY ano, mes;
+
+# Gráfico de Barras - Filmes mais populares
+SELECT f.nome_fil, COUNT(*) AS quantidade_vendida FROM Ingressos AS i
+INNER JOIN Sessoes AS s 
+	ON s.id_ses = i.id_sessao_fk
+INNER JOIN Filmes AS f 
+	ON f.id_fil = s.id_filme_fk
+GROUP BY f.id_fil
+ORDER BY quantidade_vendida DESC;
+
+# Gráfico de Barras - Produto mais vendido
+SELECT p.nome_prod, SUM(pv.quantidade_prod_ven) AS quantidade_vendida FROM Produtos_Venda AS pv
+INNER JOIN Produtos AS p ON p.id_prod = pv.id_produto_fk
+GROUP BY p.id_prod
+ORDER BY quantidade_vendida DESC;
+
+# Gráfico de Pizza - Funcionário com mais venda (valor)
+SELECT f.nome_fun, SUM(v.total_ven) AS valor FROM Vendas AS v
+INNER JOIN Caixas AS c ON c.id_cai = v.id_caixa_fk
+INNER JOIN Funcionarios AS f ON f.id_fun = c.id_funcionario_fk
+GROUP BY f.id_fun
+ORDER BY valor DESC;
