@@ -63,7 +63,6 @@ CREATE TABLE Formas_Pagamento(
 CREATE TABLE Caixas(
     id_cai INT PRIMARY KEY AUTO_INCREMENT,
     valor_ini_cai FLOAT,
-    valor_fim_cai FLOAT,
     dt_ini_cai DATETIME,
     dt_fim_cai DATETIME,
     total_ent_cai FLOAT,

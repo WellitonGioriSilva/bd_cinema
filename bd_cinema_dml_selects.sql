@@ -55,12 +55,16 @@ GROUP BY p.nome_prod HAVING(COUNT(*)) > 1;
 
 # Gráfico de Linha - Faturamento Mensal
 SELECT 
-    YEAR(data_ven) AS ano,
-    MONTH(data_ven) AS mes,
-    SUM(total_ven) AS total_mensal
-FROM Vendas
+    YEAR(dt_fim_cai) AS ano,
+    MONTH(dt_fim_cai) AS mes,
+    SUM(total_ent_cai) AS total_entrada_mensal,
+    SUM(total_sai_cai) AS total_saida_mensal,
+    SUM((valor_ini_cai + total_ent_cai) - total_sai_cai) AS total_lucro_mensal
+FROM Caixas
 GROUP BY ano, mes
 ORDER BY ano, mes;
+
+SELECT * FROM Caixas;
 
 # Gráfico de Barras - Filmes mais populares
 SELECT f.nome_fil, COUNT(*) AS quantidade_vendida FROM Ingressos AS i
