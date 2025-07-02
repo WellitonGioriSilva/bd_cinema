@@ -81,7 +81,7 @@ INSERT INTO Formas_Pagamento (nome_for_pag) VALUES
 ('Boleto'), ('Transferência'), ('Carteira Digital'), ('PayPal'), ('Crédito Loja');
 
 -- Caixas
-INSERT INTO Caixas (valor_ini_cai, valor_fim_cai, dt_ini_cai, dt_fim_cai, total_ent_cai, total_sai_cai, id_funcionario_fk) VALUES
+INSERT INTO Caixas (valor_ini_cai, dt_ini_cai, dt_fim_cai, total_ent_cai, total_sai_cai, id_funcionario_fk) VALUES
 (500.00, '2025-05-20 14:00:00', '2025-05-20 22:00:00', 1500.00, 1000.00, 1),
 (400.00, '2025-05-21 14:00:00', '2025-05-21 22:00:00', 1300.00, 900.00, 2),
 (300.00, '2025-05-22 14:00:00', '2025-05-22 22:00:00', 1200.00, 800.00, 3),
